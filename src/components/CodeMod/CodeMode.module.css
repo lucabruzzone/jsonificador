@@ -1,0 +1,86 @@
+.boxMain{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    /* min-height: 500px; */
+}
+
+.boxNav{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.boxNavOn{
+    height: 100%;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.284);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    transition: all .3s;
+}
+
+.boxNavButton{
+    height: 100%;
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-radius: 0 0  0 5px;
+    background-color: rgba(255, 255, 255, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.boxNavButton:hover{
+    background-color: rgba(255, 255, 255, 0.117);
+}
+
+.boxSolicitud{
+    /* border-bottom: 1px solid rgba(146, 146, 146, 0.548); */
+}
+
+.boxResultado{
+    height: 220px;
+    position: relative;
+    background: rgb(43, 43, 43);
+}
+
+.resultado{
+    min-width: 100%;
+    overflow-y: scroll;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 16px;
+}
+
+.copyButton{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border: none;
+    background-color: transparent;
+}
+
+.copyButton p{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: .4;
+}
+
+.copyButton p:hover{
+    opacity: 1;
+}

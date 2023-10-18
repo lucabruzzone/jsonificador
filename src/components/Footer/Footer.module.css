@@ -1,0 +1,44 @@
+.view{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 320px;
+}
+
+.bigContainer{
+    width: 95%;
+    max-width: 600px;
+}
+
+.bigContainer h1{
+    padding: 15px 0 5px 0;
+}
+
+.comentario{
+    color: rgb(0, 71, 0);
+}
+
+.contacto{
+    padding: 15px 0;
+}
+
+.contacto p{
+    margin: 0;
+    font-size: 15px;
+}
+
+.contacto a{
+    text-decoration: none;
+    color: black;
+}
+
+.contacto a:hover{
+    text-decoration: underline;
+}
+
+.year{
+    font-size: 14px;
+    margin-bottom: 5px;
+}

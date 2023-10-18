@@ -1,0 +1,149 @@
+.view{
+    width: 100%;
+    height: 900px;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.titulo{
+    width: 90%;
+    height: 70px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.h1{
+    color: white;
+    font-size: 30px;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+}
+
+.boxGeneral{
+    background: #1e1e1e;
+    width: 90%;
+    max-width: 600px;
+    /* border: 1px solid rgba(146, 146, 146, 0.548); */
+    border-radius: 0 0 20px 20px;
+    overflow: hidden;
+}
+
+
+
+
+
+
+
+/* MODALIDAD */
+
+.modalidad{
+    border-radius: 20px 20px 0 0 ;
+    margin-top: 15px;
+    height: 40px;
+    width: 90%;
+    max-width: 600px;
+    display: flex;
+    overflow: hidden;
+}
+
+.modalidadButtons{
+    font-size: 20px;
+    width: 50%;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all .2s;
+}
+
+#buttonOn{
+    color: white;
+    background: rgb(0, 134, 243);
+}
+
+#buttonOff{
+    color: rgba(255, 255, 255, 0.321);
+    background: #1e1e1e;
+}
+
+
+
+
+
+
+/* BOX MAIN */
+
+.boxMain{
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: 500px;
+}
+
+.boxNav{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.boxNavOn{
+    height: 100%;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.284);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    transition: all .3s;
+}
+
+.boxSolicitud{
+    height: 50%;
+    border-bottom: 1px solid rgba(146, 146, 146, 0.548);
+}
+
+.boxResultado{
+    height: 50%;
+    position: relative;
+    background: rgb(43, 43, 43);
+}
+
+.resultado{
+    min-height: 100%;
+    min-width: 100%;
+    overflow-y: scroll;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 16px;
+}
+
+.copyButton{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border: none;
+    background-color: transparent;
+}
+
+.copyButton p{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: .4;
+}
+
+.copyButton p:hover{
+    opacity: 1;
+}

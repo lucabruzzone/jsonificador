@@ -1,0 +1,241 @@
+.boxMain{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    overflow-y: hidden;
+    /* min-height: 500px; */
+}
+
+.boxNav{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.boxNavOn{
+    height: 100%;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.284);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 30px;
+    transition: all .3s;
+}
+
+
+
+
+
+
+
+/* NAV PARAMS */
+
+.paramsContainer{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.listParam{
+    width: 95%;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    border-radius: 20px;
+    /* background-color: rgba(0, 0, 0, 0.095); */
+}
+
+.inputContainer{
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+}
+
+.inputContainer p{
+    color: rgba(255, 255, 255, 0.284);
+    font-size: 15px;
+    font-weight: bold;
+    height: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.inputProperty{
+    flex-grow: 0;
+    width: 40%;
+    padding-left: 25px;
+}
+
+.inputValue{
+    flex-grow: 1;
+    min-width: 80px;
+    padding-left: 30px;
+}
+
+.listParam button{
+    flex-grow: 0;
+    width: 70px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.284);
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.listParam button:hover{
+    color: rgb(255, 255, 255);
+}
+
+
+
+
+
+
+
+/* SOLICITUD TABLA */
+
+.boxSolicitud{
+    height: 220px;
+    width: 100%;
+    /* border-bottom: 1px solid rgba(146, 146, 146, 0.548); */
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.list{
+    height: 33px;
+    width: 95%;
+    margin: 6px 0;
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.095);
+}
+
+.list p{
+    color: rgba(255, 255, 255, 0.284);
+}
+
+.ListComponent{
+    flex-grow: 1;
+}
+
+.list button{
+    flex-grow: 0;
+    width: 70px;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.284);
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.list button:hover{
+    color: rgb(255, 255, 255);
+}
+
+
+
+
+
+
+
+/* BOX RESULTADO */
+
+.boxResultado{
+    height: 220px;
+    position: relative;
+    background: rgb(43, 43, 43);
+}
+
+.resultado{
+    min-width: 100%;
+    overflow-y: scroll;
+    color: white;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 16px;
+}
+
+.boxNav{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.boxNavOn{
+    height: 100%;
+    font-size: 20px;
+    color: rgba(255, 255, 255, 0.284);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    transition: all .3s;
+}
+
+.boxNavButton{
+    height: 100%;
+    font-size: 20px;
+    color: white;
+    border: none;
+    border-radius: 0 0  0 5px;
+    background-color: rgba(255, 255, 255, 0.07);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 30px;
+    cursor: pointer;
+    transition: all .3s;
+}
+
+.boxNavButton:hover{
+    background-color: rgba(255, 255, 255, 0.117);
+}
+
+.copyButton{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    border: none;
+    background-color: transparent;
+}
+
+.copyButton p{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    opacity: .4;
+}
+
+.copyButton p:hover{
+    opacity: 1;
+}
