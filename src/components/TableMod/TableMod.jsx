@@ -1,52 +1,60 @@
 import styles from './TableMod.module.css';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import CodeBlock from '../Board/ResultBoard';
 import List from '../List/List';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCodeTableMod, tableModeInput } from '../../redux/actions';
 
 function TableMod() {
+    const input1Ref = useRef(null);
+    const dispatch = useDispatch();
+    const globalInputTable = useSelector(state => state.tableModInput);
+    const globalCodeForCopy = useSelector((state) => state.tableModCode);
     const [resultValue, setResultValue] = useState('');
     const [copied, setCopied] = useState(false);
     const [tableObject, setTableObject] = useState({
-        1: {key: '', value: ''}
+        1: { key: '', value: '' }
     });
 
     function Convert() {
         let newObj = {};
-        Object.entries(tableObject).forEach(([key, value]) => {
+        Object.entries(globalInputTable).forEach(([key, value]) => {
             const propertyKey = value.key;
             const valueKey = value.value;
-            newObj = {...newObj, [propertyKey]: valueKey};
+            newObj = { ...newObj, [propertyKey]: valueKey };
         })
-        setResultValue(JSON.stringify(newObj));
+        const finalResult = JSON.stringify(newObj, null, 2);
+        setResultValue(finalResult);
+        dispatch(addCodeTableMod(finalResult));
     }
 
     function addTableObj() {
-        const gate = Object.entries(tableObject).some(([key, value]) => {
+        const gate = Object.entries(globalInputTable).some(([key, value]) => {
             return value.key === '' || value.value === '';
         })
         console.log(gate);
         if (gate) alert('Debes completar todas las filas');
         else {
             const id = Object.keys(tableObject).length + 1;
-            setTableObject({ ...tableObject, [id]: {key: '', value: ''} });
+            const newObj = { key: '', value: '' };
+            setTableObject({ ...tableObject, [id]: newObj });
+            dispatch(tableModeInput({ newObj, id }));
         }
     }
 
     function handleInput(object, id) {
-        let objKey = object.key.trim();
-        let objValue = object.value.trim();
-        if (/\s/.test(objKey)) {
-            objKey = objKey.replace(/\s/g, '_');
-        }
-        if (/\s/.test(objValue)) {
-            objValue = objValue.replace(/\s/g, '_');
-        }
-        setTableObject({...tableObject, [id]: {key: objKey, value: objValue}});
+        let objKey = object.key;
+        let objValue = object.value;
+        objKey = objKey.replace(/\s/g, '');
+        objValue = objValue.replace(/\s/g, '');
+        const newObj = { key: objKey, value: objValue };
+        setTableObject({ ...tableObject, [id]: newObj });
+        dispatch(tableModeInput({ newObj, id }));
     }
 
     async function handleCopyText() {
         try {
-            await navigator.clipboard.writeText(resultValue);
+            await navigator.clipboard.writeText(globalCodeForCopy);
             setCopied(true);
             setTimeout(() => {
                 setCopied(false);
@@ -66,20 +74,20 @@ function TableMod() {
                         <p className={styles.inputProperty}>Key</p>
                         <p className={styles.inputValue}>Value</p>
                     </div>
-                    <button onClick={addTableObj}>
-                        ➕ New
+                    <button ref={input1Ref} onClick={addTableObj}>
+                        New ＋
                     </button>
                 </div>
             </div>
             <div className={styles.boxSolicitud}>
-                {Object.entries(tableObject).map(([key, value]) => {
+                {Object.entries(globalInputTable).map(([key, value]) => {
                     return (
-                        <div id={key} className={styles.list}>
-                            <p id={key}>{key}</p>
+                        <div className={styles.list}>
+                            <p>{key}</p>
                             <div className={styles.ListComponent}>
-                                <List id={key} handleInput={handleInput} />
+                                <List id={key} handleInput={handleInput} addTableObj={addTableObj} />
                             </div>
-                            <button id={key}>
+                            <button>
                                 ➕ Node
                             </button>
                         </div>
@@ -87,12 +95,12 @@ function TableMod() {
                 })}
             </div>
             <div className={styles.boxResultado}>
-                <div className={styles.boxNav}>
+                <div className={styles.boxNavResultado}>
                     <div name='json' className={styles.boxNavOn}>JSON</div>
                     <button onClick={Convert} name='json' className={styles.boxNavButton}>Convert</button>
                 </div>
                 <div className={styles.resultado}>
-                <CodeBlock text={resultValue ? resultValue : '// Press on "Convert"'} />
+                    <CodeBlock text={resultValue ? resultValue : '// Press on "Convert"'} />
                 </div>
                 <button onClick={handleCopyText} className={styles.copyButton}>
                     {copied ? <p>✓ Copied</p> : <p>📋 Copy</p>}

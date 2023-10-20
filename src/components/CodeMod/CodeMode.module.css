@@ -29,37 +29,40 @@
     font-size: 20px;
     color: white;
     border: none;
-    border-radius: 0 0  0 5px;
-    background-color: rgba(255, 255, 255, 0.07);
+    background-color:transparent;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 30px;
     cursor: pointer;
-    transition: all .3s;
 }
 
 .boxNavButton:hover{
     background-color: rgba(255, 255, 255, 0.117);
 }
 
-.boxSolicitud{
-    /* border-bottom: 1px solid rgba(146, 146, 146, 0.548); */
-}
-
 .boxResultado{
-    height: 220px;
     position: relative;
     background: rgb(43, 43, 43);
 }
 
 .resultado{
+    min-height: 220px;
     min-width: 100%;
-    overflow-y: scroll;
+    /* overflow: scroll; */
     color: white;
     display: flex;
     justify-content: flex-start;
     font-size: 16px;
+}
+
+.boxNavResultado{
+    height: 35px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(57, 57, 57, 0.492);
 }
 
 .copyButton{

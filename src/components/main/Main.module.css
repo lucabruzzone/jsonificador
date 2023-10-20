@@ -1,6 +1,6 @@
 .view{
     width: 100%;
-    height: 900px;
+    min-height: 900px;
     background-color: black;
     display: flex;
     flex-direction: column;
@@ -42,7 +42,7 @@
 /* MODALIDAD */
 
 .modalidad{
-    border-radius: 20px 20px 0 0 ;
+    border-radius: 20px 20px 0 0;
     margin-top: 15px;
     height: 40px;
     width: 90%;
@@ -69,81 +69,6 @@
 
 #buttonOff{
     color: rgba(255, 255, 255, 0.321);
-    background: #1e1e1e;
-}
-
-
-
-
-
-
-/* BOX MAIN */
-
-.boxMain{
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    min-height: 500px;
-}
-
-.boxNav{
-    height: 35px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-}
-
-.boxNavOn{
-    height: 100%;
-    font-size: 20px;
-    color: rgba(255, 255, 255, 0.284);
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    padding-left: 30px;
-    transition: all .3s;
-}
-
-.boxSolicitud{
-    height: 50%;
-    border-bottom: 1px solid rgba(146, 146, 146, 0.548);
-}
-
-.boxResultado{
-    height: 50%;
-    position: relative;
+    /* background: #1e1e1e; */
     background: rgb(43, 43, 43);
-}
-
-.resultado{
-    min-height: 100%;
-    min-width: 100%;
-    overflow-y: scroll;
-    color: white;
-    display: flex;
-    justify-content: flex-start;
-    font-size: 16px;
-}
-
-.copyButton{
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    border: none;
-    background-color: transparent;
-}
-
-.copyButton p{
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    height: 100%;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-    opacity: .4;
-}
-
-.copyButton p:hover{
-    opacity: 1;
 }

@@ -4,12 +4,20 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    height: 320px;
+    /* height: 320px; */
 }
 
 .bigContainer{
     width: 95%;
     max-width: 600px;
+}
+
+.textos a{
+    text-decoration: none;
+}
+
+.textos a:hover{
+    text-decoration: underline;
 }
 
 .bigContainer h1{
@@ -40,5 +48,5 @@
 
 .year{
     font-size: 14px;
-    margin-bottom: 5px;
+    margin: 60px 0 5px 0;
 }

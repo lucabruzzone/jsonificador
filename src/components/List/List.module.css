@@ -16,7 +16,8 @@
 }
 
 .inputContainer input::placeholder{
-    opacity: .7;
+    font-size: 14px;
+    opacity: .4;
 }
 
 .inputProperty{
