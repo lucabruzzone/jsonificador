@@ -1,36 +1,53 @@
 
 const initialState = {
-    codeModCode: '',
-    codeModResult: '',
-    tableModCode: '',
-    tableModInput: {
-        1: {key: '', value: ''}
+    formatCODE: 'json',
+    formatTABLE: 'json',
+    codeModeInput: '',
+    codeModeResult: '',
+    codeModeResult2: '',
+    tableModeInput: {
+        1: { key: '', value: '' }
     },
+    tableModeResult: '',
+    tableModeResult2: '',
     currentMode: 'code'
 };
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "SETFORMATCODE":
+            return { ...state, formatCODE: action.payload };
+
+        case "SETFORMATTABLE":
+            return { ...state, formatTABLE: action.payload };
+
+        case "ADDCODEMODEINPUT":
+            return { ...state, codeModeInput: action.payload };
+
         case "ADDRESULT_CODEMODE":
-            return {...state, codeModResult: action.payload};
+            return { ...state, codeModeResult: action.payload };
 
-        case "ADDCODE_CODEMODE":
-            return {...state, codeModCode: action.payload};
-
-        case "ADDCODE_TABLEMODE":
-            return {...state, tableModCode: action.payload};
-
-        case "CURRENTMODE":
-            return {...state, currentMode: action.payload};
+        case "ADDRESULT_CODEMODE2":
+            return { ...state, codeModeResult2: action.payload };
 
         case "TABLEMODEINPUT":
             const id = action.payload.id;
             const obj = action.payload.newObj;
-            const new_obj = {...state.tableModInput, [id]: obj};
-            return {...state, tableModInput: new_obj};
+            /* const new_obj = { ...state.tableModeInput, [id]: obj };
+            return { ...state, tableModeInput: new_obj }; */
+            return { ...state, tableModeInput: {...state.tableModeInput, [id]: obj} };
+
+        case "ADDCODE_TABLEMODE":
+            return { ...state, tableModeResult: action.payload };
+
+        case "ADDCODE_TABLEMODE2":
+            return { ...state, tableModeResult2: action.payload };
+
+        case "CURRENTMODE":
+            return { ...state, currentMode: action.payload };
 
         default:
-            return {...state};
+            return { ...state };
     }
 };
 

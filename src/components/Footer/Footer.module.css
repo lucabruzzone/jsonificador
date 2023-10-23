@@ -8,24 +8,46 @@
 }
 
 .bigContainer{
-    width: 95%;
+    width: 90%;
     max-width: 600px;
 }
 
-.textos a{
-    text-decoration: none;
-}
-
-.textos a:hover{
-    text-decoration: underline;
-}
-
 .bigContainer h1{
-    padding: 15px 0 5px 0;
+    padding: 15px 0 0 0;
 }
 
 .comentario{
     color: rgb(0, 71, 0);
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.parrafo{
+    line-height: 22px;
+    font-weight: 500;
+}
+
+.textos ul{
+    position: relative;
+    list-style: none;
+    padding-left: 0;
+    text-align: left;
+    width: max-content;
+    margin: 40px auto 20px auto;
+}
+
+.textos li::before{
+    content: '-';
+    margin-right: 20px;
+}
+
+.textos li{
+    margin: 4px 0;
+}
+
+#masFunc{
+    margin-top: 10px;
+    font-style: italic;
 }
 
 .contacto{

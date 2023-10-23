@@ -1,16 +1,13 @@
 import React, { useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
 import styles from './List.module.css';
 
-function List({ id, handleInput, addTableObj }) {
-    const globalInputTable = useSelector(state => state.tableModInput);
-    const keyDefault = globalInputTable[id].key;
-    const valueDefault = globalInputTable[id].value;
+function List({ id, handleInput, addTableObj, keyDefault, valueDefault }) {
     const [inputValue, setInputValue] = useState({});
     const input1Ref = useRef(null);
     const input2Ref = useRef(null);
 
     function handleTable(e, currentInputRef, nextInputRef) {
+        e.preventDefault();
         const value = e.target.value;
         const property = e.target.name;
         setInputValue({ ...inputValue, [property]: value })

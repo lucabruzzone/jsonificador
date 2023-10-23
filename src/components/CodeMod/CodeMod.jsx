@@ -4,35 +4,47 @@ import { useDispatch, useSelector } from 'react-redux';
 import { stringify } from '../main/Functions';
 import CodeBlock from '../Board/ResultBoard';
 import Editor from '@monaco-editor/react';
-import { addCodeCodeMod, addResultCodeMod } from '../../redux/actions';
+import { addCodeModeInput, addResultCodeMode, addResultCodeMode2, setFormatCode } from '../../redux/actions';
 
 function CodeMod() {
-    const globalStateResult = useSelector((state) => state.codeModResult);
-    const globalCodeForCopy = useSelector((state) => state.codeModCode);
+    const format = useSelector((state) => state.formatCODE);
+    const globalStateInput = useSelector((state) => state.codeModeInput);
+    const globalCodeForCopy = useSelector((state) => state.codeModeResult);
+    const globalCodeForCopy2 = useSelector((state) => state.codeModeResult2);
     const dispatch = useDispatch();
     const [inputValue, setInputValue] = useState('// Press on "Convert"');
     const [resultValue, setResultValue] = useState(null);
     const [copied, setCopied] = useState(false);
 
-    function Convert() {
-        const open = globalCodeForCopy[0];
-        const close = globalCodeForCopy[globalCodeForCopy.length - 1];
-        if (open === '{' && close === '}') {
+    function convert() {
+        const open = globalStateInput[0];
+        const close = globalStateInput[globalStateInput.length - 1];
+        if ((open === '{' && close === '}') || (open === '[' && close === ']')) {
+            const stringifyValue = stringify(globalStateInput);
+            let finalResult = JSON.stringify(stringifyValue, null, 2);
+            setResultValue(finalResult);
+            dispatch(addResultCodeMode(finalResult));
+
+            // ahora se despacha el resultado 2 sin comillas
+            finalResult = finalResult.replace(/"/g, '');
+            dispatch(addResultCodeMode2(finalResult));
         }
-        const stringifyValue = stringify(globalCodeForCopy);
-        const finalResult = JSON.stringify(stringifyValue, null, 2);
-        setResultValue(finalResult);
-        dispatch(addResultCodeMod(finalResult));
+        else alert('La sintaxis del código ingresado no es válida')
     }
 
     function handleInput(value) {
         setInputValue(value);
-        dispatch(addCodeCodeMod(value));
+        dispatch(addCodeModeInput(value));
     }
 
     async function handleCopyText() {
         try {
-            await navigator.clipboard.writeText(globalCodeForCopy);
+            if (format === 'json') {
+                await navigator.clipboard.writeText(globalCodeForCopy);
+            }
+            else if (format === 'object') {
+                await navigator.clipboard.writeText(globalCodeForCopy2);
+            }
             setCopied(true);
             setTimeout(() => {
                 setCopied(false);
@@ -43,18 +55,26 @@ function CodeMod() {
         }
     }
 
+    function handleFormat(e) {
+        const name = e.target.name;
+        dispatch(setFormatCode(name));
+    }
+
     return (
         <div className={styles.boxMain}>
             <div className={styles.boxSolicitud}>
                 <div className={styles.boxNav}>
                     <div name='json' className={styles.boxNavOn}></div>
                 </div>
-                <Editor value={globalCodeForCopy} onChange={handleInput} height='220px' defaultLanguage="markdown" theme='vs-dark' />
+                <Editor value={globalStateInput} onChange={handleInput} height='220px' defaultLanguage="markdown" theme='vs-dark' />
             </div>
             <div className={styles.boxResultado}>
                 <div className={styles.boxNavResultado}>
-                    <div name='json' className={styles.boxNavOn}>JSON</div>
-                    <button onClick={Convert} name='json' className={styles.boxNavButton}>Convert</button>
+                    <div name='json' className={styles.boxFormat}>
+                        <button name='json' onClick={handleFormat} className={format === 'json' ? styles.buttonOn : styles.buttonOff} id={styles.boxNavButtonFormat}>Json</button>
+                        <button name='object' onClick={handleFormat} className={format === 'object' ? styles.buttonOn : styles.buttonOff} id={styles.boxNavButtonFormat}>Object</button>
+                    </div>
+                    <button onClick={convert} name='json' className={styles.boxNavButtonConvert}>Convert</button>
                 </div>
                 <div className={styles.resultado}>
                     <CodeBlock text={resultValue ? resultValue : inputValue} />

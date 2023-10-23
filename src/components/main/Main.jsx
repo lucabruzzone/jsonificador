@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { currentMode } from '../../redux/actions';
 import CodeMod from '../CodeMod/CodeMod';
-import TableMod from '../TableMod/TableMod';
+import TableMode from '../TableMod/TableMod';
 
 function Main() {
     const dispatch = useDispatch();
@@ -31,7 +31,7 @@ function Main() {
             <div className={styles.boxGeneral}>
                 {buttonSelected === 'code' ?
                     <CodeMod/> :
-                    <TableMod/>
+                    <TableMode/>
                 }
             </div>
         </div>

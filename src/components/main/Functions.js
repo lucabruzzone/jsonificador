@@ -1,191 +1,170 @@
 
-/* export function stringify(value) {
-    let newObject = {};
-
-    let array = value.split('');
-    array.shift();
-    array.pop();
-    let join = array.join('');
-    let splitComa = join.split(',');
-    for (let i = 0; i < splitComa.length; i++) {
-        let iterado = splitComa[i];
-        const primerAparicion = iterado.indexOf(':');
-        const primerosDosElementos = [
-            iterado.slice(0, primerAparicion), // Captura la parte antes de ':'
-            iterado.slice(primerAparicion + 1) // Captura la parte después de ':'
-        ];
-        if (primerosDosElementos.length === 2) {
-            let keyProperty = primerosDosElementos[0].trim();
-            let keyValue = primerosDosElementos[1].trim();
-            if (/\s/.test(keyProperty)) {
-                keyProperty = keyProperty.replace(/\s/g, '');
-            }
-            if (/\s/.test(keyValue)) {
-                keyValue = keyValue.replace(/\s/g, '');
-            }
-            let open = keyValue[0];
-            let close = keyValue[keyValue.length - 1];
-            if (open === '{' && close === '}') {
-                let valueRecursivo = stringify(keyValue);
-                newObject = {...newObject, [keyProperty]: valueRecursivo}
-            }
-            else {
-                newObject = {...newObject, [keyProperty]: keyValue};
-            }
-        }
-    }
-
-    return newObject;
-} */
-
-
-
-
-
-
-
-
 export function stringify(value) {
-    /* 
-    let objetoTemporal = {};
-    let stringTemporal = '';
-    let llaveAbierta = false;
-    let llaveCerrada = false;
-    let segundoTemporal; */
-   /*  let acumulador = []; */
-    let signosTotales = 0;
+    let anticipo = null;
     let separacion;
     let izquierda;
     let derecha;
     let newObject = {};
     let stringTemporal = '';
-    let contadorOpen = 0;
-    let contadorClose = 0;
+    let keyOpen = 0;
+    let keyClose = 0;
+    let corchOpen = 0;
+    let corchClose = 0;
+    let trash = [];
 
     let array = value.split('');
-    array.shift();
-    array.pop();
+    let first = array.shift();
+    let second = array.pop();
     let join = array.join('');
     join = join.replace(/\s/g, '');
-    /* if (!join.length) */
-    for (let i = 0; i < join.length; i++) {
-        const letra = join[i];
-        stringTemporal += letra;
-        if (join[i + 1] === ',' && !contadorOpen && !contadorClose) {
+    join = join.replace(/"/g, '');
+    join = join.replace(/'/g, '');
+    /* console.log(first, second); */
+    if (first === '{' && second === '}') {
+        for (let i = 0; i < join.length; i++) {
+            const letra = join[i];
+            stringTemporal += letra;
+            if (letra === '{') {
+                keyOpen++;
+                if (!anticipo) {
+                    anticipo = '{';
+                }
+            }
+            if (letra === '}') {
+                keyClose++;
+                if (!anticipo) {
+                    anticipo = '}';
+                }
+            }
+            if (letra === '[') {
+                corchOpen++;
+                if (!anticipo) {
+                    anticipo = '[';
+                }
+            }
+            if (letra === ']') {
+                corchClose++;
+                if (!anticipo) {
+                    anticipo = ']';
+                }
+            }
+            if (join[i + 1] === ',' && !keyOpen && !keyClose && !corchOpen && !corchClose) {
+                separacion = stringTemporal.indexOf(':');
+                izquierda = stringTemporal.slice(0, separacion);
+                derecha = stringTemporal.slice(separacion + 1);
+                newObject = { ...newObject, [izquierda]: derecha };
+                stringTemporal = '';
+                anticipo = null;
+                i++;
+            }
+            if (keyOpen && keyClose && keyOpen === keyClose && anticipo === '{') {
+                separacion = stringTemporal.indexOf(':');
+                izquierda = stringTemporal.slice(0, separacion);
+                derecha = stringTemporal.slice(separacion + 1);
+                let derechaRecursivo = stringify(derecha);
+                newObject = { ...newObject, [izquierda]: derechaRecursivo };
+                stringTemporal = '';
+                keyOpen = 0;
+                keyClose = 0;
+                corchOpen = 0;
+                corchClose = 0;
+                anticipo = null;
+                i++;
+            }
+            if (corchOpen && corchClose && corchOpen === corchClose && anticipo === '[') {
+                separacion = stringTemporal.indexOf(':');
+                izquierda = stringTemporal.slice(0, separacion);
+                derecha = stringTemporal.slice(separacion + 1);
+                let derechaRecursivo = stringify(derecha);
+                newObject = { ...newObject, [izquierda]: derechaRecursivo };
+                stringTemporal = '';
+                keyOpen = 0;
+                keyClose = 0;
+                corchOpen = 0;
+                corchClose = 0;
+                anticipo = null;
+                i++;
+            }
+        }
+        if (stringTemporal.length) {
             separacion = stringTemporal.indexOf(':');
             izquierda = stringTemporal.slice(0, separacion);
             derecha = stringTemporal.slice(separacion + 1);
-            newObject = {...newObject, [izquierda]: derecha};
-            stringTemporal = '';
-            /* signosTotales++; */
-            i++
+            newObject = { ...newObject, [izquierda]: derecha };
         }
-        if (letra === '{') {
-            contadorOpen++;
-        }
-        if (letra === '}') {
-            contadorClose++;
-        }
-        if (contadorOpen === 1 && contadorClose === 1) {
-            separacion = stringTemporal.indexOf(':');
-            izquierda = stringTemporal.slice(0, separacion);
-            derecha = stringTemporal.slice(separacion + 1);
-            let derechaRecursivo = stringify(derecha);
-            newObject = {...newObject, [izquierda]: derechaRecursivo};
-            stringTemporal = '';
-            contadorOpen = 0;
-            contadorClose = 0;
-            signosTotales++;
-            i++
-        }
-        if (contadorOpen && contadorClose && contadorOpen === contadorClose) {
-            separacion = stringTemporal.indexOf(':');
-            izquierda = stringTemporal.slice(0, separacion);
-            derecha = stringTemporal.slice(separacion + 1);
-            let derechaRecursivo = stringify(derecha);
-            newObject = {...newObject, [izquierda]: derechaRecursivo};
-            stringTemporal = '';
-            contadorOpen = 0;
-            contadorClose = 0;
-            /* signosTotales++; */
-            i++
-        }
-
-
-
-
-    }
-    if (!signosTotales) {
-        separacion = stringTemporal.indexOf(':');
-        izquierda = stringTemporal.slice(0, separacion);
-        derecha = stringTemporal.slice(separacion + 1);
-        newObject = {...newObject, [izquierda]: derecha};
+        return newObject;
     }
 
-    return newObject;
-
-
-
-
-
-    /* const separacion = join.indexOf(':');
-    const primerElemento = join.slice(0, separacion).trim();
-    const segundoElemento = join.slice(separacion + 1).trim();
-    for (let i = 0; i < segundoElemento.length; i++) {
-        stringTemporal += segundoElemento[i];
-        if (segundoElemento[i - 1] === ',' && !contadorOpen) {
-            objetoTemporal = {...objetoTemporal, primerElemento: stringTemporal}
+    else {
+        let arrayMaster = [];
+        for (let i = 0; i < join.length; i++) {
+            const letra = join[i];
+            stringTemporal += letra;
+            if (letra === '{') {
+                keyOpen++;
+                if (!anticipo) {
+                    anticipo = '{';
+                }
+            }
+            if (letra === '}') {
+                keyClose++;
+                if (!anticipo) {
+                    anticipo = '}';
+                }
+            }
+            if (letra === '[') {
+                corchOpen++;
+                if (!anticipo) {
+                    anticipo = '[';
+                }
+            }
+            if (letra === ']') {
+                corchClose++;
+                if (!anticipo) {
+                    anticipo = ']';
+                }
+            }
+            if (join[i + 1] === ',' && !keyOpen && !keyClose && !corchOpen && !corchClose) {
+                arrayMaster.push(stringTemporal);
+                stringTemporal = '';
+                anticipo = null;
+                i++;
+            }
+            if (keyOpen && keyClose && keyOpen === keyClose && anticipo === '{') {
+                let newElement = stringify(stringTemporal);
+                arrayMaster.push(newElement);
+                stringTemporal = '';
+                keyOpen = 0;
+                keyClose = 0;
+                corchOpen = 0;
+                corchClose = 0;
+                anticipo = null;
+                i++;
+            }
+            if (corchOpen && corchClose && corchOpen === corchClose && anticipo === '[') {
+                let newElement = stringify(stringTemporal);
+                arrayMaster.push(newElement);
+                stringTemporal = '';
+                keyOpen = 0;
+                keyClose = 0;
+                corchOpen = 0;
+                corchClose = 0;
+                anticipo = null;
+                /* i++; */
+            }
         }
-        else {
-            newObject = {primerElemento: stringTemporal};
+        if (stringTemporal.length) {
+            arrayMaster.push(stringTemporal);
         }
-
-
-
-        if (segundoElemento[i] === '{') {
-            stringTemporal = '';
+        let finalArrayMater = [];
+        for (let i = 0; i < arrayMaster.length; i++) {
+            let element = arrayMaster[i];
+            if (Array.isArray(element) && !element.length) {
+                trash.push(element);
+            }
+            else finalArrayMater.push(element);
         }
-        stringTemporal += segundoElemento[i];
-        if (segundoElemento[i] === '}') {
-            segundoTemporal = stringify(stringTemporal);
-        }
+        return finalArrayMater;
     }
-    segundoTemporal = stringTemporal;
-    for (let i = 0; i < segundoElemento.length; i++) {
-        let letra = segundoElemento[i];
-        if (letra === '{') llaveAbierta(true);
-        const primerAparicion = iterado.indexOf(':');
-        const primerosDosElementos = [
-            iterado.slice(0, primerAparicion), // Captura la parte antes de ':'
-            iterado.slice(primerAparicion + 1) // Captura la parte después de ':'
-        ];
-        if (primerosDosElementos.length === 2) {
-            let keyProperty = primerosDosElementos[0].trim();
-            let keyValue = primerosDosElementos[1].trim();
-            if (/\s/.test(keyProperty)) {
-                keyProperty = keyProperty.replace(/\s/g, '');
-            }
-            if (/\s/.test(keyValue)) {
-                keyValue = keyValue.replace(/\s/g, '');
-            }
-            let open = keyValue[0];
-            let close = keyValue[keyValue.length - 1];
-            if (open === '{' && close === '}') {
-                let valueRecursivo = stringify(keyValue);
-                newObject = {...newObject, [keyProperty]: valueRecursivo}
-            }
-            else {
-                newObject = {...newObject, [keyProperty]: keyValue};
-            }
-        }
-    }
-
-    return newObject; */
 }
-
-
-
-
-
-
 

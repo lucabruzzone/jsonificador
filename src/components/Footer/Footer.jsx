@@ -10,7 +10,13 @@ function Footer() {
                 <div className={styles.textos}>
                     <h1>JSONificator</h1>
                     <p className={styles.comentario}>// App en desarrollo</p>
-                    <p>Rápido conversor a formato json para incluir comillas dobles de forma inmdiata, sin tener que tipear manualmente. Útil en aplicaciones de testeo de APIs como <a href="https://insomnia.rest/" target="_blank" rel="noreferrer">Insomnia</a>, <a href="https://www.postman.com/" target="_blank" rel="noreferrer">Postman</a>, etc.</p>
+                    <p className={styles.parrafo}>Rápido conversor de formato para incluir o eliminar comillas dobles de forma inmdiata, sin tener que hacerlo manualmente.</p>
+                    <ul>
+                        <li>Agiliza las pruebas de tu API</li>
+                        <li>Evita errores de tipeo</li>
+                        <li>Personaliza objetos</li>
+                        <li id={styles.masFunc}>Pronto más funcionalidades 🛠 </li>
+                    </ul>
                 </div>
                 <div className={styles.contacto}>
                     <a href="https://github.com/lucabruzzone" target="_blank" rel="noreferrer">
