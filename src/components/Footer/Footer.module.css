@@ -25,6 +25,7 @@
 .parrafo{
     line-height: 22px;
     font-weight: 500;
+    color: rgba(0, 0, 0, 0.808);
 }
 
 .textos ul{
@@ -34,6 +35,7 @@
     text-align: left;
     width: max-content;
     margin: 40px auto 20px auto;
+    color: rgba(0, 0, 0, 0.808);
 }
 
 .textos li::before{

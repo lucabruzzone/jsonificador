@@ -10,7 +10,7 @@ function Footer() {
                 <div className={styles.textos}>
                     <h1>JSONificator</h1>
                     <p className={styles.comentario}>// App en desarrollo</p>
-                    <p className={styles.parrafo}>Rápido conversor de formato para incluir o eliminar comillas dobles de forma inmdiata, sin tener que hacerlo manualmente.</p>
+                    <p className={styles.parrafo}>Rápido conversor de formato para incluir o eliminar comillas dobles de forma inmediata, sin tener que hacerlo manualmente.</p>
                     <ul>
                         <li>Agiliza las pruebas de tu API</li>
                         <li>Evita errores de tipeo</li>
