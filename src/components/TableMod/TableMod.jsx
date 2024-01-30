@@ -74,6 +74,7 @@ function TableMode() {
         setTableObject(table);
         // DESPACHO DEL OBJETO JAVASCRIPT AL ESTADO GLOBAL PARA SER REUTILIZADO POR OTRAS FUNCIONES
         dispatch(tableModeInput({ newObj, id }));
+        // console.log({ newObj, id });
 
         //FUNCIÓN DESABILITADA POR AHORA
         /* let _newObj = {};
@@ -108,7 +109,7 @@ function TableMode() {
         try {
             if (format === 'json') {
                 await navigator.clipboard.writeText(globalCodeForCopy);
-            } 
+            }
             else if (format === 'object') {
                 await navigator.clipboard.writeText(globalCodeForCopy2);
             }
@@ -151,7 +152,7 @@ function TableMode() {
                         <div className={styles.list}>
                             <p>{key}</p>
                             <div className={styles.ListComponent}>
-                                <List id={key} keyDefault={keyDefault} valueDefault={valueDefault} handleInput={handleInput} addTableObj={addTableObj} convert={convert}/>
+                                <List id={key} keyDefault={keyDefault} valueDefault={valueDefault} handleInput={handleInput} addTableObj={addTableObj} convert={convert} />
                             </div>
                             {/* <button>
                                 ➕ Node
